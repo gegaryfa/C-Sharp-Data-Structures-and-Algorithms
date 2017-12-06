@@ -121,12 +121,11 @@ namespace BinaryTrees
             };
 
             Console.WriteLine("-------------------------");
-            Console.WriteLine("Testing VisibleNodesCount");
-            Console.WriteLine(VisibleNodesCount(t0));
-            Console.WriteLine(VisibleNodesCount(t1));
-            Console.WriteLine(VisibleNodesCount(t2));
-            Console.WriteLine(VisibleNodesCount(t3));
-
+            Console.WriteLine("Testing TreeHeight");
+            Console.WriteLine(TreeHeight(t0));
+            Console.WriteLine(TreeHeight(t1));
+            Console.WriteLine(TreeHeight(t2));
+            Console.WriteLine(TreeHeight(t3));
             Console.WriteLine("-------------------------");
             Console.ReadKey(true);
 
@@ -137,7 +136,7 @@ namespace BinaryTrees
         #region Algorithm
         /*
          * Given the root of a Binary Tree consisting of 
-         * N nodes returns the number of visible nodes.
+         * N nodes returns the height of the tree.
          * 
          * In case of an empty Binary Tree (root == null)
          * returns -1
@@ -145,47 +144,23 @@ namespace BinaryTrees
          * Time complexity: O(N)
          * Space complexity: O(N)
          */
-        private static int VisibleNodesCount(Tree T)
+        private static int TreeHeight(Tree T)
         {
             if (T == null)
             {
                 return -1;
             }
 
-            var counter = 0;
+            int left = 0;
+            int right = 0;
 
-            Stack<Tuple<int, Tree>> stack = new Stack<Tuple<int, Tree>>();
-            stack.Push(new Tuple<int, Tree>(T.x, T));
+            if (T.l != null)
+                left = TreeHeight(T.l) + 1;
 
-            while (stack.Count > 0)
-            {
-                var tempNode = stack.Pop();
+            if (T.r != null)
+                right = TreeHeight(T.r) + 1;
 
-                //This is a visible node
-                if (tempNode.Item1 <= tempNode.Item2.x)
-                {
-                    ++counter;
-                }
-
-                //Keep the max so far value
-                var max = Math.Max(tempNode.Item1, tempNode.Item2.x);
-
-                //Test children
-
-                //if left SubTree exists add to stack
-                if (tempNode.Item2.l != null)
-                {
-                    stack.Push(new Tuple<int, Tree>(max, tempNode.Item2.l));
-                }
-
-                //if right SubTree exists add to stack
-                if (tempNode.Item2.r != null)
-                {
-                    stack.Push(new Tuple<int, Tree>(max, tempNode.Item2.r));
-                }
-            }
-
-            return counter;
+            return Math.Max( left, right );
         }
         #endregion Algorithm
     }
