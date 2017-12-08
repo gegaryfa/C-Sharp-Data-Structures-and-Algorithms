@@ -1,10 +1,10 @@
-namespace PrimeNumbers
+namespace ArraySorting
 {
     using System;
     using System.Collections.Generic;
 
 
-    class PrimeNumbersAlgorithms
+    class ArraySortingAlgorithms
     {
         #region Tests
         static void Main(string[] args)
